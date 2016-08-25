@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="checkbox" id="selectAllCBoxMain" /> 主菜单<br>
+<div id="sss">
+    <input type="checkbox" id="selectAllCBox" /> 子菜单1<br>
+    <div id="box1">
+        <input type="checkbox" id="1Cbox"  />1
+        <input type="checkbox" id="2Cbox"  />2
+        <input type="checkbox" id="3Cbox"  />3
+    </div>
+
+    <input type="checkbox" id="selectAllCBox1" /> 子菜单2<br>
+    <div id="box2">
+        <input type="checkbox" id="4Cbox"  />4
+        <input type="checkbox" id="5Cbox"  />5
+        <input type="checkbox" id="6Cbox"  />6
+    </div>
+</div>
+<br>
+<br>
+<input type="checkbox" id="selectAllCBox3" /> 菜单3<br>
+<div id="box3">
+    <input type="checkbox" id="7Cbox"  />4
+    <input type="checkbox" id="8Cbox"  />5
+    <input type="checkbox" id="9Cbox"  />6
+</div>
+<script src="../jquery.min.js"></script>
+<script>
+
+    $("#selectAllCBox").click(function(){
+        var checked=this.checked;
+        selectAll(checked,1);
+        selectSecondAll();
+    });
+
+    $("#selectAllCBox1").click(function(){
+        var checked=this.checked;
+        selectAll(checked,2);
+        selectSecondAll();
+    });
+
+
+    $("#box1 input").click(function(){
+        var id='selectAllCBox';
+        setSelectAll(id,1);
+    });
+    $("#box2 input").click(function(){
+        var id='selectAllCBox1';
+        setSelectAll(id,2);
+    });
+
+    $("#selectAllCBoxMain").click(function(){
+        var checked=this.checked;
+        selectFirstAll(checked);
+    });
+
+    /**/
+    $("#selectAllCBox3").click(function(){
+        var checked=this.checked;
+        selectAll(checked,3);
+        selectSecondAll();
+    });
+    $("#box3 input").click(function(){
+        var id='selectAllCBox3';
+        setSelectAll1(id,3);
+    });
+    /**/
+
+    var selectFirstAll=(checked)=>{
+        var mainvalue=['selectAllCBox','selectAllCBox1'];
+        for (var v in mainvalue) {
+            $('#'+mainvalue[v]).prop("checked",checked);
+        }
+        selectAll(checked,1);
+        selectAll(checked,2);
+
+    }
+
+    var selectSecondAll=()=>{
+        var flag1=false;
+        var mainvalue=['selectAllCBox','selectAllCBox1'];
+        for (var v in mainvalue){
+            if ($('#'+mainvalue[v]).prop('checked')) {
+                flag1 = true;
+                break;
+            }
+        }
+        $('#selectAllCBoxMain').prop('checked',flag1);
+    }
+
+    var idsValue=(Sflag)=>{
+        var inputs;
+        switch(Sflag)
+        {
+            case 1:
+                inputs=$('#box1 input');
+                break;
+            case 2:
+                inputs=$('#box2 input');
+                break;
+            case 3:
+                inputs=$('#box3 input');
+                break;
+            default:
+
+        }
+        var ids=new Array();
+        for(var i=0;i< inputs.length;i++){
+            ids.push(inputs[i].id);
+        }
+        return ids;
+
+    }
+
+    var selectAll=(checked,Sflag)=>{
+        idsValue(Sflag);
+        var ids=idsValue(Sflag);
+        for (var i in ids) {
+            $('#'+ids[i]).prop("checked",checked);
+        }
+
+    }
+
+    var setSelectAll=(id,Sflag)=> {
+        idsValue(Sflag);
+        var ids=idsValue(Sflag);
+        var flag = false;
+        for (var i in ids) {
+            if ($('#'+ids[i]).prop('checked')) {
+                flag = true;
+                break;
+            }
+        }
+        $('#'+id).prop('checked',flag);
+
+//        var arr1=['selectAllCBox','selectAllCBox1'];
+//        var arr2=ids;
+//        var arr3=[];
+//        for(var s in arr1){
+//            for(var x in arr2){
+//                if(arr1[s]==arr2[x]){
+//                    arr3.push(arr1[s]);
+//                }
+//            }
+//        }
+//        if(arr3.length>0){
+//        }
+        selectSecondAll();
+
+    }
+
+    var setSelectAll1=(id,Sflag)=> {
+        idsValue(Sflag);
+        var ids=idsValue(Sflag);
+        var flag = false;
+        for (var i in ids) {
+            if ($('#'+ids[i]).prop('checked')) {
+                flag = true;
+                break;
+            }
+        }
+        $('#'+id).prop('checked',flag);
+
+    }
+</script>
+</body>
+</html>
