@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../jquery.min.js"></script>
+<script>
+    var a=["on", "101", "102", "103", "104", "on", "on", "201", "202", "203", "204", "on", "301", "302", "303", "304", "on", "401", "402", "403", "on", "501", "502", "503"];
+    var str;
+    function removeByValue(arr, val) {
+        for(var i=0; i<arr.length; i++) {
+            if(arr[i] == val) {
+                arr.splice(i, 1);
+                 str=arr.toString();
+            }
+        }
+    }
+
+    function unique(arr) {
+        var result = [], hash = {};
+        for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+            if (!hash[elem]) {
+                result.push(elem);
+                hash[elem] = true;
+            }
+        }
+        return removeByValue(result, "on");
+    }
+    unique(a);
+
+    console.log(str)
+</script>
+</body>
+</html>
